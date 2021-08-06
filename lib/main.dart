@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:reddit_frontend/user.dart';
+import 'package:reddit_frontend/Providers/home.dart';
+import 'package:reddit_frontend/Providers/user.dart';
+import 'package:reddit_frontend/Screens/LoginScreen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,25 +13,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Hello'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Text('Hello World!'),
-              TextButton(
-                onPressed: () {
-
-                },
-                child: Text("Send request"),
-              )
-            ],
-          ),
-        ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => User(),
+        )
+      ],
+      child: MaterialApp(
+        title: "Best Reddit App",
+        home: HomeScreen(),
+        routes: {
+          LoginScreen.routName: (ctx) => LoginScreen(),
+        },
       ),
     );
   }
