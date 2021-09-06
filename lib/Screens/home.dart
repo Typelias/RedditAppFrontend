@@ -17,6 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Provider.of<User>(context, listen: false).getToken();
   }
 
+
+  void redditLogin() async {
+
+  }
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -29,16 +34,22 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
 
-
     loading = false;
     _isInit = false;
     super.didChangeDependencies();
+  }
+
+  logout() {
+    Provider.of<User>(context, listen: false).doLogOut();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(onPressed: logout, icon: Icon(Icons.logout)),
+        ],
         title: Text("Yes"),
       ),
       body: loading
@@ -46,7 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
               child: CircularProgressIndicator(),
             )
           : Center(
-              child: Text("Hej"),
+              child: Column(
+                children: [
+                  Text("Hej"),
+                  ElevatedButton(onPressed: () {
+                    var token = Provider.of<User>(context, listen: false).token;
+                    print(token);
+                    print("hello");
+                    print(Provider.of<User>(context, listen: false).username);
+                  }, child: Text('Greger'))
+                ],
+              ),
             ),
     );
   }
