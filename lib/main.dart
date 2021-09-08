@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:reddit_frontend/Providers/home.dart';
+import 'package:reddit_frontend/Providers/CurrentPost.dart';
+import 'package:reddit_frontend/Providers/FrontPageListing.dart';
+import 'package:reddit_frontend/Screens/RedditLogin.dart';
+import 'package:reddit_frontend/Screens/home.dart';
 import 'package:reddit_frontend/Providers/user.dart';
-import 'package:reddit_frontend/Screens/LoginScreen.dart';
 import 'package:provider/provider.dart';
+import 'package:reddit_frontend/Screens/test.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,13 +20,22 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => User(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => FrontPageListing(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CurrentPost(),
         )
       ],
       child: MaterialApp(
+        darkTheme: ThemeData.dark(),
+        theme: ThemeData.dark(),
         title: "Best Reddit App",
         home: HomeScreen(),
         routes: {
-          LoginScreen.routName: (ctx) => LoginScreen(),
+          RedditLoginScreen.routename: (ctx) => RedditLoginScreen(),
+          Test.routename: (ctx) => Test(),
         },
       ),
     );
